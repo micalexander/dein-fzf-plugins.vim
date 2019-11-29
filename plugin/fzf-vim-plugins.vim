@@ -13,7 +13,8 @@ function! s:fzf_vim_plugins()
   call fzf#run({
         \ 'source': readfile(expand("<sfile>:p:h")."/vim-plugins.txt"),
         \ 'sink':   function('s:install_plugins'),
-        \ 'options': '-m --exact'})
+        \ 'options': '-m --exact',
+        \ 'window':  'call FloatingFZF()' })
 endfunction
 
 command! Plugins call s:fzf_vim_plugins()
