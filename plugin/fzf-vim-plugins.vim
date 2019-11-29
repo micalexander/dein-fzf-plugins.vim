@@ -11,9 +11,8 @@ endfunction
 
 
 function! s:fzf_vim_plugins()
-  echo readfile(expand('<sfile>:p:h/../vim-plugins.txt'))
   call fzf#run({
-        \ 'source': readfile(expand('<sfile>:p:h/../vim-plugins.txt')),
+        \ 'source': readfile(expand('<sfile>:p:h../vim-plugins.txt')),
         \ 'sink':   function('s:install_plugins'),
         \ 'options': '-m --exact',
         \ 'window':  'call FloatingFZF()' })
