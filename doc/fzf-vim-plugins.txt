@@ -1,0 +1,12 @@
+*fzf-vim-plugins.txt*  A vim plugin that allows you to fuzzy search online vim plugins using fzf
+
+Author:  Michael Alexander <http://micalexander.com/>
+License: Same terms as Vim itself (see |license|)
+
+This plugin is only available if 'compatible' is not set.
+
+INTRODUCTION                                    *fzf-vim-plugins*
+
+This is a test
+
+ vim:tw=78:et:ft=help:norl:

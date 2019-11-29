@@ -1,4 +1,4 @@
-function! Install_plugins(path)
+function! s:install_plugins(path)
   let l:plugin = split(a:path)[3].'/'.split(a:path)[0]
   let l:choice = confirm('Are you sure you want to install '.substitute(l:plugin, '\n\+$', '', '').'?', "&Yes\n&No", 1)
   if l:choice == 1
@@ -6,16 +6,17 @@ function! Install_plugins(path)
   else
     echo 'Nothing will install.'
   endif
+
 endfunction
 
 
-function! s:fzf_plugins()
+function! s:fzf_vim_plugins()
   call fzf#run({
         \ 'source': readfile(expand('../vim-plugins.txt')),
-        \ 'sink':   function('Install_plugins'),
+        \ 'sink':   function('s:install_plugins'),
         \ 'options': '-m --exact',
         \ 'window':  'call FloatingFZF()' })
 endfunction
 
-command! Plugins call s:fzf_plugins()
+command! Plugins call s:fzf_vim_plugins()
 
