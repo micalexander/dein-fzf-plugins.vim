@@ -11,6 +11,8 @@ endfunction
 
 
 function! s:fzf_vim_plugins()
+  echo expand('%:h')
+  let l:choice = confirm('Are you sure you want to install '.substitute(l:plugin, '\n\+$', '', '').'?', "&Yes\n&No", 1)
   call fzf#run({
         \ 'source': readfile('../vim-plugins.txt'),
         \ 'sink':   function('s:install_plugins'),
