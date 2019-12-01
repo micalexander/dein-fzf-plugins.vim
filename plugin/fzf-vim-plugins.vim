@@ -38,9 +38,11 @@ function! s:install_plugins(path)
 
 endfunction
 
+let s:soruce = readfile(resolve(expand("<sfile>:p:h")."vim-plugins.txt"))
+
 function! s:fzf_vim_plugins()
   call fzf#run({
-        \ 'source': readfile(expand("<sfile>:p:h")."/vim-plugins.txt"),
+        \ 'source': s:source,
         \ 'sink':   function('s:install_plugins'),
         \ 'options': '-m --exact',
         \ 'window':  'call FloatingFZF()' })
