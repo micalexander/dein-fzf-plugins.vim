@@ -38,7 +38,7 @@ function! s:install_plugins(path)
 
 endfunction
 
-let s:soruce = readfile(resolve(expand("<sfile>:p:h")."vim-plugins.txt"))
+let s:soruce = readfile(resolve(expand("<sfile>:p:h"))."vim-plugins.txt")
 
 function! s:fzf_vim_plugins()
   call fzf#run({
