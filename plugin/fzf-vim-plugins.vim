@@ -48,5 +48,21 @@ function! s:fzf_vim_plugins()
         \ 'window':  'call FloatingFZF()' })
 endfunction
 
+function! s:fzf_vim_plugins_list()
+  function! s:help_file(item)
+    let l:doc_dir_path = g:dein#_base_path.'/repos/github.com/'.a:item.'/doc'
+    let l:doc_file_path = system('find '.l:doc_dir_path.' -type f -name "*.txt" 2> /dev/null | head -1')
+    execute 'silent h' fnamemodify(l:doc_file_path, ':t')
+  endfunction
+
+  call fzf#run({
+        \ 'source': "find ".g:dein#_base_path."/repos/github.com -type d -depth 2 | awk -F/ '{print $(NF-1)FS$NF}'",
+        \ 'sink':   function('s:help_file'),
+        \ 'options': '--prompt \ \ Installed\ Plugins:\ ',
+        \ 'window':    'call FloatingFZF()' })
+endfunction
+
+
 command! Plugins call s:fzf_vim_plugins()
+command! PluginsList call s:fzf_vim_plugins_list()
 
