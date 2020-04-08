@@ -49,7 +49,7 @@ function! s:dein_fzf_install()
 endfunction
 
 function! s:dein_fzf_list()
-    let s:list = {}
+    let s:list = []
     for p in keys(dein#get())
       call add(s:list, tolower(dein#get()[p].repo))
     endfor
