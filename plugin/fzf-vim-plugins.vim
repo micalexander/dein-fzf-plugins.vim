@@ -1,5 +1,5 @@
-if exists('g:loaded_fzf_vim_plugins') | finish | endif
-let g:loaded_fzf_vim_plugins = 1
+if exists('g:loaded_dein_fzf_plugins') | finish | endif
+let g:loaded_dein_fzf_plugins = 1
 
 if has('nvim') && exists('&winblend') && &termguicolors
 
@@ -40,7 +40,7 @@ endfunction
 
 let s:source = readfile(resolve(expand("<sfile>:p:h"))."/../vim-plugins.txt")
 
-function! s:fzf_vim_plugins()
+function! s:dein_fzf_plugins()
   call fzf#run({
         \ 'source': s:source,
         \ 'sink':   function('s:install_plugins'),
@@ -48,7 +48,7 @@ function! s:fzf_vim_plugins()
         \ 'window':  'call FloatingFZF()' })
 endfunction
 
-function! s:fzf_vim_plugins_list()
+function! s:dein_fzf_plugins_list()
   function! s:help_file(item)
     let l:doc_dir_path = g:dein#_base_path.'/repos/github.com/'.a:item.'/doc'
     let l:doc_file_path = system('find '.l:doc_dir_path.' -type f -name "*.txt" 2> /dev/null | head -1')
@@ -63,6 +63,6 @@ function! s:fzf_vim_plugins_list()
 endfunction
 
 
-command! Plugins call s:fzf_vim_plugins()
-command! PluginsList call s:fzf_vim_plugins_list()
+command! Plugins call s:dein_fzf_plugins()
+command! PluginsList call s:dein_fzf_pluginslist()
 
