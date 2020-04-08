@@ -5,7 +5,7 @@
 - [fzf.vim](https://github.com/junegunn/fzf.vim)
 
 ## Commands
-:Plugns - List plugins that can be installed<br/>
-:PluginsList - List plugins currently installed via [dein](https://github.com/Shougo/dein.vim)
+:DeinFZFInstall - List plugins that can be installed<br />
+:DeinFZFList - List plugins currently installed via [dein](https://github.com/Shougo/dein.vim)
 
 
