@@ -1,0 +1,15 @@
+*dein-fzf.txt*  A vim plugin that allows you to fuzzy search online vim plugins using fzf
+
+Author:  Michael Alexander <http://micalexander.com/>
+License: Same terms as Vim itself (see |license|)
+
+This plugin is only available if 'compatible' is not set.
+
+INTRODUCTION                                    *dein-fzfs*
+
+A vim plugin that allows you to fuzzy search and install vim plugins using fzf
+
+:DeinFZFInstall - List plugins that can be installed
+:DeinFZFList - List plugins currently installed via [dein](https://github.com/Shougo/dein.vim)
+
+ vim:tw=78:et:ft=help:norl:
