@@ -1,5 +1,5 @@
-if exists('g:loaded_dein_fzf_plugins') | finish | endif
-let g:loaded_dein_fzf_plugins = 1
+if exists('g:loaded_dein_fzf') | finish | endif
+let g:loaded_dein_fzf = 1
 
 if has('nvim') && exists('&winblend') && &termguicolors
 
@@ -27,7 +27,7 @@ if has('nvim') && exists('&winblend') && &termguicolors
   let g:fzf_layout = { 'window': 'call FloatingFZF()' }
 endif
 
-function! s:install_plugins(path)
+function! s:dein_fzf_install_action(path)
   let l:plugin = split(a:path)[3].'/'.split(a:path)[0]
   let l:choice = confirm('Are you sure you want to install '.substitute(l:plugin, '\n\+$', '', '').'?', "&Yes\n&No", 1)
   if l:choice == 1
@@ -40,20 +40,20 @@ endfunction
 
 let s:source = readfile(resolve(expand("<sfile>:p:h"))."/../vim-plugins.txt")
 
-function! s:dein_fzf_plugins()
+function! s:dein_fzf_install()
   call fzf#run({
         \ 'source': s:source,
-        \ 'sink':   function('s:install_plugins'),
+        \ 'sink':   function('s:dein_fzf_install_action'),
         \ 'options': '-m --exact',
         \ 'window':  'call FloatingFZF()' })
 endfunction
 
-function! s:dein_fzf_plugins_list()
-    let s:plugin_list = {}
+function! s:dein_fzf_list()
+    let s:list = {}
     for p in keys(dein#get())
-      call add(s:plugin_list, tolower(dein#get()[p].repo))
+      call add(s:list, tolower(dein#get()[p].repo))
     endfor
-    return sort(s:plugin_list)
+    return sort(s:list)
   endfunction
 
   function! s:help_file(item)
@@ -63,12 +63,12 @@ function! s:dein_fzf_plugins_list()
   endfunction
 
   call fzf#run({
-        \ 'source': s:get_plugin_list(),
+        \ 'source': s:dein_fzf_list(),
         \ 'sink':   function('s:help_file'),
         \ 'options': '--prompt \ \ Installed\ Plugins:\ ',
         \ 'window':    'call FloatingFZF()' })
 endfunction
 
-command! Plugins call s:dein_fzf_plugins()
-command! PluginsList call s:dein_fzf_pluginslist()
+command! DeinFZFInstall call s:dein_fzf_install()
+command! DeinFZFList call s:dein_fzf_list()
 
