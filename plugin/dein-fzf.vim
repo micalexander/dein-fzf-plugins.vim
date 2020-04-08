@@ -32,6 +32,7 @@ function! s:dein_fzf_install_action(path)
   let l:choice = confirm('Are you sure you want to install '.substitute(l:plugin, '\n\+$', '', '').'?', "&Yes\n&No", 1)
   if l:choice == 1
     call dein#direct_install(substitute(l:plugin, '\n\+$', '', ''))
+    call dein#recache_runtimepath()
   else
     echo 'Nothing will install.'
   endif
