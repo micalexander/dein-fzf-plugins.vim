@@ -49,6 +49,13 @@ function! s:dein_fzf_plugins()
 endfunction
 
 function! s:dein_fzf_plugins_list()
+    let s:plugin_list = {}
+    for p in keys(dein#get())
+      call add(s:plugin_list, tolower(dein#get()[p].repo))
+    endfor
+    return sort(s:plugin_list)
+  endfunction
+
   function! s:help_file(item)
     let l:doc_dir_path = g:dein#_base_path.'/repos/github.com/'.a:item.'/doc'
     let l:doc_file_path = system('find '.l:doc_dir_path.' -type f -name "*.txt" 2> /dev/null | head -1')
@@ -56,12 +63,11 @@ function! s:dein_fzf_plugins_list()
   endfunction
 
   call fzf#run({
-        \ 'source': "find ".g:dein#_base_path."/repos/github.com -type d -depth 2 | awk -F/ '{print $(NF-1)FS$NF}'",
+        \ 'source': s:get_plugin_list(),
         \ 'sink':   function('s:help_file'),
         \ 'options': '--prompt \ \ Installed\ Plugins:\ ',
         \ 'window':    'call FloatingFZF()' })
 endfunction
-
 
 command! Plugins call s:dein_fzf_plugins()
 command! PluginsList call s:dein_fzf_pluginslist()
