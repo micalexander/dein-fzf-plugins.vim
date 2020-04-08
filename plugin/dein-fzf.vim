@@ -15,11 +15,11 @@ if has('nvim') && exists('&winblend') && &termguicolors
     let width = float2nr(&columns * 0.8)
     let height = float2nr(&lines * 0.6)
     let opts = { 'relative': 'editor',
-               \ 'style': 'minimal',
-               \ 'row': 1,
-               \ 'col': (&columns - width) / 2,
-               \ 'width': width,
-               \ 'height': height }
+          \ 'style': 'minimal',
+          \ 'row': 1,
+          \ 'col': (&columns - width) / 2,
+          \ 'width': width,
+          \ 'height': height }
 
     call nvim_open_win(nvim_create_buf(v:false, v:true), v:true, opts)
   endfunction
@@ -38,37 +38,37 @@ function! s:dein_fzf_install_action(path)
 
 endfunction
 
-let s:source = readfile(resolve(expand("<sfile>:p:h"))."/../vim-plugins.txt")
+let s:dein_fzf_install_source = readfile(resolve(expand("<sfile>:p:h"))."/../vim-plugins.txt")
 
 function! s:dein_fzf_install()
   call fzf#run({
-        \ 'source': s:source,
+        \ 'source': s:dein_fzf_install_source,
         \ 'sink':   function('s:dein_fzf_install_action'),
         \ 'options': '-m --exact',
         \ 'window':  'call FloatingFZF()' })
 endfunction
 
+function! s:dein_fzf_list_source()
+  let s:list = []
+  for p in keys(dein#get())
+    call add(s:list, tolower(dein#get()[p].repo))
+  endfor
+  return sort(s:list)
+endfunction
+
+function! s:help_file(item)
+  let l:doc_dir_path = g:dein#_base_path.'/repos/github.com/'.a:item.'/doc'
+  let l:doc_file_path = system('find '.l:doc_dir_path.' -type f -name "*.txt" 2> /dev/null | head -1')
+  execute 'silent h' fnamemodify(l:doc_file_path, ':t')
+endfunction
+
 function! s:dein_fzf_list()
-    let s:list = []
-    for p in keys(dein#get())
-      call add(s:list, tolower(dein#get()[p].repo))
-    endfor
-    return sort(s:list)
-  endfunction
-
-  function! s:help_file(item)
-    let l:doc_dir_path = g:dein#_base_path.'/repos/github.com/'.a:item.'/doc'
-    let l:doc_file_path = system('find '.l:doc_dir_path.' -type f -name "*.txt" 2> /dev/null | head -1')
-    execute 'silent h' fnamemodify(l:doc_file_path, ':t')
-  endfunction
-
-  call fzf#run({
-        \ 'source': s:dein_fzf_list(),
-        \ 'sink':   function('s:help_file'),
-        \ 'options': '--prompt \ \ Installed\ Plugins:\ ',
-        \ 'window':    'call FloatingFZF()' })
+call fzf#run({
+      \ 'source': s:dein_fzf_list_source(),
+      \ 'sink':   function('s:help_file'),
+      \ 'options': '--prompt \ \ Installed\ Plugins:\ ',
+      \ 'window':    'call FloatingFZF()' })
 endfunction
 
 command! DeinFZFInstall call s:dein_fzf_install()
 command! DeinFZFList call s:dein_fzf_list()
-
