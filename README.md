@@ -9,5 +9,6 @@
 :DeinFZFList - List plugins currently installed via [dein](https://github.com/Shougo/dein.vim)
 
 ## Recommended Mappings
-`nnoremap <silent> <leader>p :DeinFZFInstall<CR>`
-`nnoremap <silent> <leader>pp :DeinFZFList<CR>`
+```nnoremap <silent> <leader>p :DeinFZFInstall<CR>```
+
+```nnoremap <silent> <leader>pp :DeinFZFList<CR>```
